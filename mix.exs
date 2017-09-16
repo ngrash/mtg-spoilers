@@ -39,6 +39,7 @@ defmodule Spoilers.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:floki, "~> 0.18.0"},
+      {:httpotion, "~> 3.0"},
     ]
   end
 end
