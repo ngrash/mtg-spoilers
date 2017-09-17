@@ -12,7 +12,7 @@ defmodule Spoilers.CardStoreTest do
 
   test "stores card" do
     card = Fixtures.sample_card
-    CardStore.store(:mm2, "lightningbolt", card)
+    CardStore.store("mm2", "lightningbolt", card)
 
     assert File.exists?(@sample_card_taget)
   end
