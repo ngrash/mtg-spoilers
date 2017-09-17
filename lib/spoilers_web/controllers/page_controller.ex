@@ -2,6 +2,6 @@ defmodule SpoilersWeb.PageController do
   use SpoilersWeb, :controller
 
   def index(conn, _params) do
-    render conn, "index.html"
+    redirect conn, to: learn_path(conn, :show)
   end
 end
