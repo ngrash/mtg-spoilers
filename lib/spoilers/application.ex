@@ -10,6 +10,7 @@ defmodule Spoilers.Application do
     children = [
       # Start the endpoint when the application starts
       supervisor(SpoilersWeb.Endpoint, []),
+      worker(Spoilers.LessonServer, [])
       # Start your own worker by calling: Spoilers.Worker.start_link(arg1, arg2, arg3)
       # worker(Spoilers.Worker, [arg1, arg2, arg3]),
     ]
