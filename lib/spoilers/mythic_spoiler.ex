@@ -10,11 +10,12 @@ defmodule Spoilers.MythicSpoiler do
     |> Spoilers.SetsParser.parse
   end
 
-  def list_cards(set) when is_atom(set) do
-    list_cards(Atom.to_string(set))
-  end
   def list_cards(set) when is_binary(set) do
     get("#{set}/index.html").body
     |> Spoilers.SetParser.parse
+  end
+
+  def get_image(set, card) do
+    get("#{set}/cards/#{card}.jpg").body
   end
 end
