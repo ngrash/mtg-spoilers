@@ -6,8 +6,6 @@ defmodule Spoiler.SetsParserTest do
     html = Fixtures.sets_html
     {:ok, sets} = Spoilers.SetsParser.parse(html)
 
-    # check some random samples
-    assert sets[:akh] == %{href: "akh/index.html"}
-    assert sets[:c17] == %{href: "c17/index.html"}
+    assert Enum.count(sets) == 103
   end
 end

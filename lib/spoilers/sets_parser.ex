@@ -5,12 +5,12 @@ defmodule Spoilers.SetsParser do
 
   defp do_parse(html) do
     tree = Floki.find(html, "a[href]")
-    Enum.reduce(tree, %{}, fn element, sets ->
+    Enum.reduce(tree, [], fn element, sets ->
       case element do
         {"a", [{"href", href}], _} ->
           case href do
             <<code :: binary-size(3)>> <> "/index.html" ->
-              Map.put(sets, String.to_atom(code), %{href: href})
+              [code | sets]
             _other ->
               sets
           end
@@ -18,5 +18,7 @@ defmodule Spoilers.SetsParser do
           sets
       end
     end)
+    |> Enum.reverse
+    |> Enum.uniq
   end
 end

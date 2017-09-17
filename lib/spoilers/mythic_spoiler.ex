@@ -15,6 +15,6 @@ defmodule Spoilers.MythicSpoiler do
   end
   def list_cards(set) when is_binary(set) do
     get("#{set}/index.html").body
-    |> Spoilers.SetParser.parse(set)
+    |> Spoilers.SetParser.parse
   end
 end
