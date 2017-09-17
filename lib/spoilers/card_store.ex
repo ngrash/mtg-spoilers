@@ -1,6 +1,10 @@
 defmodule Spoilers.CardStore do
   @path Path.expand("./cards")
 
+  def remove_set(set) do
+    File.rm_rf!(Path.join(@path, set))
+  end
+
   def store(set, name, image) do
     path = file_path(set, name)
     File.mkdir_p!(Path.dirname(path))

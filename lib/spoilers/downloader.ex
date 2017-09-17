@@ -5,11 +5,18 @@ defmodule Spoilers.Downloader do
 
   def download_set(set) do
     {:ok, cards} = MythicSpoiler.list_cards(set)
-    for card <- cards do
-      Logger.debug "Downloading #{set}/#{card}"
+
+    CardStore.remove_set(set)
+
+    cards
+    |> Enum.with_index
+    |> Enum.each(fn {card, index} ->
+      number = index+1 |> Integer.to_string |> String.pad_leading(3, "0")
+      name = "#{number}-#{card}"
+      Logger.debug "Downloading #{set}/#{name}"
       image = MythicSpoiler.get_image(set, card)
-      CardStore.store(set, card, image)
-    end
+      CardStore.store(set, name, image)
+    end)
     :ok
   end
 end
