@@ -11,6 +11,10 @@ defmodule SpoilersWeb.Endpoint do
     at: "/", from: :spoilers, gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
+  # Serve at "/cards" the card images from "cards" directory.
+  plug Plug.Static,
+    at: "/cards", from: Path.expand("./cards"), gzip: false
+
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
