@@ -1,0 +1,3 @@
+<%= for lesson <- @lessons do %>
+  <%= lesson_button(@conn, lesson) %>
+<% end %>

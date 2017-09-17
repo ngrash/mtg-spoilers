@@ -1,2 +1,3 @@
-Hello Planeswalker! You seem to be new to MasterSpoiler.
-
+<img src="<%= image_path(@set, @card) %>">
+<%= button "done", to: learn_path(@conn, :card_done) %>
+<%= button "review", to: learn_path(@conn, :card_review) %>

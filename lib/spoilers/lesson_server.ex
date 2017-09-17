@@ -20,6 +20,21 @@ defmodule Spoilers.LessonServer do
     GenServer.call(__MODULE__, {:get_lesson, set, number})
   end
 
+  def get_card(set, lesson, card)
+  when is_binary(set)
+  when is_integer(lesson)
+  when is_integer(card) do
+    GenServer.call(__MODULE__, {:get_card, set, lesson, card})
+  end
+
+  def get_lessons(set) when is_binary(set) do
+    GenServer.call(__MODULE__, {:get_lessons, set})
+  end
+
+  def get_sets do
+    GenServer.call(__MODULE__, :get_sets)
+  end
+
   def reload_sets do
     GenServer.cast(__MODULE__, :reload_sets)
   end
@@ -30,6 +45,25 @@ defmodule Spoilers.LessonServer do
 
   def init(:ok) do
     {:ok, load_sets()}
+  end
+
+  def handle_call(:get_sets, _from, state) do
+    sets = Enum.map(state, fn {set, lessons} -> set end)
+    {:reply, {:ok, sets}, state}
+  end
+
+  def handle_call({:get_card, set, lesson, card}, _from, state) do
+    lessons = Map.get(state, set)
+    lesson = Map.get(lessons, lesson)
+    the_card = Enum.find(lesson, fn {num, _} -> num == card end)
+    {:reply, {:ok, the_card}, state}
+  end
+
+  def handle_call({:get_lessons, set}, _from, state) do
+    lessons =
+      Map.get(state, set)
+
+    {:reply, {:ok, lessons}, state}
   end
 
   def handle_call({:get_lesson, set, lesson}, _from, state) do

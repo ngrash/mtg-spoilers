@@ -1,0 +1,5 @@
+Hello Planeswalker! You seem to be new to MasterSpoiler.
+
+<%= for set <- @sets do %>
+  <%= button set, to: learn_path(@conn, :start_set, set: set) %>
+<% end %>

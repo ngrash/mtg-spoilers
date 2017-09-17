@@ -1,0 +1,3 @@
+Welcome to <%= @set %>!
+
+<%= render("lesson_list.html", conn: @conn, lessons: @lessons) %>

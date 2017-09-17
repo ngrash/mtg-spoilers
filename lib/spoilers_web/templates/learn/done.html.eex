@@ -1,0 +1,3 @@
+Here is a list of all lessons for the current set.
+
+<%= render("lesson_list.html", conn: @conn, lessons: @lessons) %>
