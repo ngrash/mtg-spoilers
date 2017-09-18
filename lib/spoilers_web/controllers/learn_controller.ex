@@ -16,7 +16,15 @@ defmodule SpoilersWeb.LearnController do
             cookie.current_lesson,
             cookie.current_card)
 
-          render conn, "show.html", set: cookie.set, card: card, lesson: cookie.current_lesson+1
+          cards_done = Enum.count(cookie.cards_done)
+
+          render conn, "show.html", [
+            set: cookie.set,
+            card: card,
+            cards_done: cards_done,
+            cards_review: 20 - cards_done,
+            lesson: cookie.current_lesson+1
+          ]
       else
         {:ok, lessons} = LessonServer.get_lessons(cookie.set)
         render conn, "begin.html", set: cookie.set, lessons: lessons
