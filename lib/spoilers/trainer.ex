@@ -1,8 +1,6 @@
 defmodule Spoilers.Trainer do
   alias Spoilers.{Cookie,LessonServer}
 
-  @default_set "ixa"
-
   def lesson_done?(%Cookie{} = cookie) do
     cookie.current_card == 0 && !Enum.empty?(cookie.cards_done)
   end
@@ -12,7 +10,7 @@ defmodule Spoilers.Trainer do
   end
 
   def new_user?(%Cookie{} = cookie) do
-    cookie.set == nil
+    cookie.set == nil || cookie.set == ""
   end
 
   def put_set(%Cookie{} = cookie, set) do
@@ -30,6 +28,11 @@ defmodule Spoilers.Trainer do
     cookie
     |> Map.put(:cards_done, [])
     |> Map.put(:cards_review, [])
+    |> Map.put(:current_card, 0)
+  end
+
+  def clear_lessons(%Cookie{} = cookie) do
+    Map.put(cookie, :lessons_done, [])
   end
 
   def put_current_done(%Cookie{} = cookie) do

@@ -9,26 +9,35 @@ defmodule SpoilersWeb.LearnController do
       {:ok, sets} = LessonServer.get_sets
       render conn, "welcome.html", sets: sets
     else
-      if Trainer.lesson_done?(cookie) do
-        {:ok, lessons} = LessonServer.get_lessons(cookie.set)
-        conn
-        |> put_flash(:info, "Well done! You completed lesson #{cookie.current_lesson+1}.")
-        |> render("done.html", lessons: lessons)
-      else
-        if Trainer.lesson_started?(cookie) do
-          {:ok, card} =
-            LessonServer.get_card(
-              cookie.set,
-              cookie.current_lesson,
-              cookie.current_card)
+      if Trainer.lesson_started?(cookie) do
+        {:ok, card} =
+          LessonServer.get_card(
+            cookie.set,
+            cookie.current_lesson,
+            cookie.current_card)
 
-          render conn, "show.html", set: cookie.set, card: card
-        else
-          {:ok, lessons} = LessonServer.get_lessons(cookie.set)
-          render conn, "begin.html", set: cookie.set, lessons: lessons
-        end
+          render conn, "show.html", set: cookie.set, card: card, lesson: cookie.current_lesson+1
+      else
+        {:ok, lessons} = LessonServer.get_lessons(cookie.set)
+        render conn, "begin.html", set: cookie.set, lessons: lessons
       end
     end
+  end
+
+  def cancel_lesson(conn, _param) do
+    Cookie.get(conn)
+    |> Trainer.clear_current_cards
+    |> Cookie.put(conn)
+    |> redirect to: learn_path(conn, :show)
+  end
+
+  def cancel_set(conn, _param) do
+    Cookie.get(conn)
+    |> Trainer.clear_current_cards
+    |> Trainer.clear_lessons
+    |> Trainer.put_set("")
+    |> Cookie.put(conn)
+    |> redirect to: learn_path(conn, :show)
   end
 
   def start_lesson(conn, %{"lesson" => lesson}) do

@@ -19,7 +19,9 @@ defmodule SpoilersWeb.Router do
     get "/", PageController, :index
     get "/learn", LearnController, :show
     post "/learn/set", LearnController, :start_set
+    post "/learn/set/cancel", LearnController, :cancel_set
     post "/learn/lesson", LearnController, :start_lesson
+    post "/learn/lesson/cancel", LearnController, :cancel_lesson
     post "/learn/review", LearnController, :card_review
     post "/learn/done", LearnController, :card_done
   end

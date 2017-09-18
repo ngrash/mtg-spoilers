@@ -11,12 +11,12 @@ defmodule SpoilersWeb.LearnView do
 
   def lesson_button(conn, {lesson, _}) when is_integer(lesson) do
     cookie = Spoilers.Cookie.get(conn)
-    name =
+    {name, class} =
       case Enum.member?(cookie.lessons_done, lesson) do
-        true -> "Lesson #{lesson+1} (done)"
-        false -> "Lesson #{lesson+1}"
+        true -> {"Lesson #{lesson+1} (done)", "btn btn-outline-success btn-lg btn-block"}
+        false -> {"Lesson #{lesson+1}", "btn btn-outline-warning btn-lg btn-block"}
       end
 
-    button name, to: learn_path(conn, :start_lesson, lesson: lesson)
+    button name, to: learn_path(conn, :start_lesson, lesson: lesson), class: class
   end
 end

@@ -13,10 +13,7 @@
 
   <body>
     <div class="container">
-      <header class="header">
-      </header>
-
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
+      <p class="alert alert-light" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
 
       <main role="main">

@@ -1,3 +1,10 @@
-Welcome to <%= @set %>!
+<h1 class="pt-3">
+  Welcome to <%= @set %>
+  <%= button "X", to: learn_path(@conn, :cancel_set), class: 'btn btn-sm btn-outline-secondary float-right', data: [confirm: "Do you want to cancel learning the spells of #{@set}? Your progress will be lost."] %>
+</h1>
+
+<p class="lead">
+  Choose a lesson to start learning the spells of <%= @set %>.
+</p>
 
 <%= render("lesson_list.html", conn: @conn, lessons: @lessons) %>

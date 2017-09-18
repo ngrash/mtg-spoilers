@@ -1,5 +1,13 @@
-Hello Planeswalker! You seem to be new to MasterSpoiler.
+<h1>
+  Welcome Planeswalker
+</h1>
+
+<p class="lead">
+  You are seeking the knowledge of unknown planes. This magic archive will help you master the spells of new planes.
+</p>
+
+<h2>Choose a set to learn</h2>
 
 <%= for set <- @sets do %>
-  <%= button set, to: learn_path(@conn, :start_set, set: set) %>
+  <%= button set, to: learn_path(@conn, :start_set, set: set), class: 'btn btn-outline-info btn-lg btn-block' %>
 <% end %>

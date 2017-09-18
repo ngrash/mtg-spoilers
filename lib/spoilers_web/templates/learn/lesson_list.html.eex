@@ -1,3 +1,5 @@
+<div class="mb-3">
 <%= for lesson <- @lessons do %>
   <%= lesson_button(@conn, lesson) %>
 <% end %>
+</div>
