@@ -1,7 +1,7 @@
 <div class="mx-auto pt-3" style="width: 265px; height: 370">
   <h1>
-    Lesson <%= @lesson %>
     <%= button "X", to: learn_path(@conn, :cancel_lesson), class: 'btn btn-sm btn-outline-secondary float-right', data: [confirm: "Do you want to cancel the lesson? Your progress will be lost."] %>
+    Lesson <%= @lesson %>
   </h1>
 
   <p>
