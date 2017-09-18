@@ -3,7 +3,7 @@ defmodule Spoilers.CardStore do
 
   @path Path.expand("./cards")
   # filter a path for card information
-  @expr ~r/(?<set>\w{3})\/(?<number>\d{3})-(?<name>\w+)\.jpg$/
+  @expr ~r/(?<set>[\w\s]+)\/(?<number>\d{3})-(?<name>\w+)\.jpg$/
 
   def remove_set(set) do
     File.rm_rf!(Path.join(@path, set))
