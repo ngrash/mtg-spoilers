@@ -4,7 +4,7 @@ defmodule Spoilers.SetParser do
   end
 
   defp do_parse(html) do
-    Regex.scan(~r/"cards\/(.+)\.html"/, html)
+    Regex.scan(~r/"cards\/(\w+)\.jpg"/, html)
     |> Enum.map(fn [_, name] -> name end)
   end
 end
