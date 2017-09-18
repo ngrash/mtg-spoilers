@@ -1,7 +1,7 @@
 defmodule Spoilers.Cookie do
   alias Spoilers.Cookie
 
-  import Plug.Conn, only: [put_resp_cookie: 3]
+  import Plug.Conn, only: [put_resp_cookie: 4]
 
   defstruct [
     set: nil,
@@ -24,12 +24,13 @@ defmodule Spoilers.Cookie do
   defp put_if_present(map, key, any), do: Map.put(map, key, any)
 
   def put(%Cookie{} = cookie, %Plug.Conn{} = conn) do
+    opts = [max_age: 14515200] # 6 month in seconds
     conn
-    |> put_resp_cookie("s", cookie.set)
-    |> put_resp_cookie("l", serialize_lessons(cookie.lessons_done))
-    |> put_resp_cookie("c", Integer.to_string(cookie.current_lesson))
-    |> put_resp_cookie("cc", Integer.to_string(cookie.current_card))
-    |> put_resp_cookie("cd", serialize_cards(cookie.cards_done))
+    |> put_resp_cookie("s", cookie.set, opts)
+    |> put_resp_cookie("l", serialize_lessons(cookie.lessons_done), opts)
+    |> put_resp_cookie("c", Integer.to_string(cookie.current_lesson), opts)
+    |> put_resp_cookie("cc", Integer.to_string(cookie.current_card), opts)
+    |> put_resp_cookie("cd", serialize_cards(cookie.cards_done), opts)
   end
 
   defp deserialize_integer(nil), do: nil
