@@ -45,7 +45,7 @@ defmodule Spoilers.Trainer do
 
   def put_next_card(%Cookie{} = cookie) do
     {:ok, lesson} = LessonServer.get_lesson(cookie.set, cookie.current_lesson)
-    candidates = Enum.reject(lesson, fn {num, name} ->
+    candidates = Enum.reject(lesson, fn {num, _name} ->
       Enum.member?(cookie.cards_done, num)
     end)
 
@@ -58,8 +58,4 @@ defmodule Spoilers.Trainer do
       Map.put(cookie, :current_card, next_card)
     end
   end
-
-  def get_lesson(%Cookie{} = cookie), do: :not_implemented
-  def put_lesson_done(%Cookie{} = cookie), do: :not_implemented
-  def put_next_lesson(%Cookie{} = cookie), do: :not_implemented
 end

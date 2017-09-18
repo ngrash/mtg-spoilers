@@ -48,7 +48,7 @@ defmodule Spoilers.LessonServer do
   end
 
   def handle_call(:get_sets, _from, state) do
-    sets = Enum.map(state, fn {set, lessons} -> set end)
+    sets = Enum.map(state, fn {set, _lessons} -> set end)
     {:reply, {:ok, sets}, state}
   end
 

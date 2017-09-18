@@ -28,7 +28,7 @@ defmodule SpoilersWeb.LearnController do
     Cookie.get(conn)
     |> Trainer.clear_current_cards
     |> Cookie.put(conn)
-    |> redirect to: learn_path(conn, :show)
+    |> redirect(to: learn_path(conn, :show))
   end
 
   def cancel_set(conn, _param) do
@@ -37,7 +37,7 @@ defmodule SpoilersWeb.LearnController do
     |> Trainer.clear_lessons
     |> Trainer.put_set("")
     |> Cookie.put(conn)
-    |> redirect to: learn_path(conn, :show)
+    |> redirect(to: learn_path(conn, :show))
   end
 
   def start_lesson(conn, %{"lesson" => lesson}) do
@@ -46,21 +46,21 @@ defmodule SpoilersWeb.LearnController do
     |> Trainer.put_lesson(lesson)
     |> Trainer.put_next_card
     |> Cookie.put(conn)
-    |> redirect to: learn_path(conn, :show)
+    |> redirect(to: learn_path(conn, :show))
   end
 
   def start_set(conn, %{"set" => set}) do
     Cookie.get(conn)
     |> Trainer.put_set(set)
     |> Cookie.put(conn)
-    |> redirect to: learn_path(conn, :show)
+    |> redirect(to: learn_path(conn, :show))
   end
 
   def card_review(conn, _param) do
     Cookie.get(conn)
     |> Trainer.put_next_card
     |> Cookie.put(conn)
-    |> redirect to: learn_path(conn, :show)
+    |> redirect(to: learn_path(conn, :show))
   end
 
   def card_done(conn, _param) do
@@ -68,6 +68,6 @@ defmodule SpoilersWeb.LearnController do
     |> Trainer.put_current_done
     |> Trainer.put_next_card
     |> Cookie.put(conn)
-    |> redirect to: learn_path(conn, :show)
+    |> redirect(to: learn_path(conn, :show))
   end
 end
